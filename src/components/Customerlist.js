@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import MaterialTable from 'material-table';
 import 'react-table-v6/react-table.css';
-
+//Icons in MaterialTable did not work properly so I found this solution
 import { forwardRef } from 'react';
-
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import Check from '@material-ui/icons/Check';
@@ -20,10 +19,10 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 
-/* import Button from '@material-ui/core/Button'; */
 
-export default function Trainerlist() {
+export default function Customerlist(props) {
 
+    //Icons listed here and everyhing working fine
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
         Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -45,6 +44,7 @@ export default function Trainerlist() {
     };
 
     const [customer, setCustomer] = useState([]);
+    const [state, setState] = useState();
 
     useEffect(() => getCustomers(), []);
 
@@ -55,44 +55,42 @@ export default function Trainerlist() {
         .catch(err => console.error(err))
     }
 
-    const columns = [
-        {
-            title: 'First Name',
-            field: 'firstname'
-        },
-        {
-            title: 'Last Name',
-            field: 'lastname'
-        },
-        {
-            title: 'First Name',
-            field: 'firstname'
-        },
-        {
-            title: 'Street Address',
-            field: 'streetaddress'
-        },
-        {
-            title: 'Post Code',
-            field: 'postcode',
-            type: 'numeric'
-        },
-        {
-            title: 'City',
-            field: 'city' 
-        },
-        {
-            title: 'Email',
-            field: 'email',
 
-        },
-        {
-            title: 'Mobile Number',
-            field: 'phone',
-            type:'numeric',
-
-        },
-    ]
+            const columns = [
+                {
+                    title: 'First Name',
+                    field: 'firstname'
+                },
+                {
+                    title: 'Last Name',
+                    field: 'lastname'
+                },
+                {
+                    title: 'Street Address',
+                    field: 'streetaddress'
+                },
+                {
+                    title: 'Post Code',
+                    field: 'postcode',
+                    type: 'numeric'
+                },
+                {
+                    title: 'City',
+                    field: 'city' 
+                },
+                {
+                    title: 'Email',
+                    field: 'email',
+        
+                },
+                {
+                    title: 'Mobile Number',
+                    field: 'phone',
+                    type:'numeric',
+        
+                },
+            ]
+    
 
 
     
@@ -104,8 +102,46 @@ export default function Trainerlist() {
                 headerStyle: {
                     backgroundColor: '#CD5C5C',
                     color: '#FFF'
-                }
+                },
+                filtering: true
             }}
+            editable={{
+                onRowAdd: newData =>
+                  new Promise((resolve) => {
+                    setTimeout(() => {
+                      {
+                        const data = props.data;
+                        customer.push(newData);
+                        setState({ data }, () => resolve());
+                      }
+                      resolve()
+                    }, 1000)
+                  }),
+                onRowUpdate: (newData, oldData) =>
+                  new Promise((resolve) => {
+                    setTimeout(() => {
+                      {
+                        const data = props.data;
+                        const index = data.indexOf(oldData);
+                        data[index] = newData;
+                        setState({ data }, () => resolve());
+                      }
+                      resolve()
+                    }, 1000)
+                  }),
+                onRowDelete: oldData =>
+                  new Promise((resolve) => {
+                    setTimeout(() => {
+                      {
+                        let data = customer;
+                        const index = data.indexOf(oldData);
+                        data.splice(index, 1);
+                        setState({ data }, () => resolve());
+                      }
+                      resolve()
+                    }, 1000)
+                  }),
+              }}
             sorting={true}
             icons={tableIcons}
             data={customer}

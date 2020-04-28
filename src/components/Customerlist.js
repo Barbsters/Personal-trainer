@@ -44,19 +44,89 @@ export default function Customerlist(props) {
     };
 
     const [customer, setCustomer] = useState([]);
-    const [state, setState] = useState();
+    const [open, setOpen] = useState(false);
+    const [msg, setMsg] = useState('');
+    const [training, setTraining] = useState({
+      date: '', activity: '', duration: '', customer: ''
+        })
+
+
+    const handleClose = () => {
+      setOpen(false);
+    }
 
     useEffect(() => getCustomers(), []);
 
     const getCustomers = () => {
-        fetch('https://customerrest.herokuapp.com/api/customers/')
+        fetch('https://customerrest.herokuapp.com/api/customers')
         .then(response => response.json())
         .then(data => setCustomer(data.content))
         .catch(err => console.error(err))
     }
 
+    const deleteCustomer = (link) => {
 
-            const columns = [
+        fetch(link, {
+            method: 'DELETE'}) 
+        .then(_ => getCustomers())
+        .then(_ => {
+            setMsg('Customer deleted');
+            setOpen(true);
+        })
+        .catch(err => console.error(err))
+        }     
+    
+
+    const addCustomer = (customer) => {
+      console.log(customer)
+      fetch('https://customerrest.herokuapp.com/api/customers',
+      { 
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify(customer)
+      }
+      )
+      .then(_ => getCustomers())
+      .then(_ => {
+        setMsg('New customer added');
+        setOpen(true);
+      })
+      .catch(err => console.error(err))
+    }
+
+    const updateCustomer = (link, customer) => {
+      fetch(link,
+      {
+       method: 'PUT',
+       headers: { 'Content-Type':'application/json'},
+       body: JSON.stringify(customer)
+      })
+      .then(_ => getCustomers())
+      .then(_ => {
+          setMsg('Customer information upadated');
+          setOpen(true);
+      })
+      .catch(err => console.error(err))
+  }
+
+  return ( 
+    <div>
+            <MaterialTable className="-striped -highlight"
+            title="Customer Database"
+            options={{
+                headerStyle: {
+                    backgroundColor: '#CD5C5C',
+                    color: '#FFF'
+                },
+                filtering: true
+            }}
+            sorting={true}
+            icons={tableIcons}
+            data={customer}
+            defaultPageSize={10} 
+            data={customer}
+  
+            columns = {[
                 {
                     title: 'First Name',
                     field: 'firstname'
@@ -89,66 +159,53 @@ export default function Customerlist(props) {
                     type:'numeric',
         
                 },
-            ]
-    
 
+                 ]}
+          
 
-    
-    return (
-        <div>
-            <MaterialTable className="-striped -highlight"
-            title="Customer Database"
-            options={{
-                headerStyle: {
-                    backgroundColor: '#CD5C5C',
-                    color: '#FFF'
-                },
-                filtering: true
-            }}
             editable={{
-                onRowAdd: newData =>
+                onRowAdd: (newData) =>
                   new Promise((resolve) => {
-                    setTimeout(() => {
-                      {
-                        const data = props.data;
-                        customer.push(newData);
-                        setState({ data }, () => resolve());
-                      }
-                      resolve()
-                    }, 1000)
-                  }),
-                onRowUpdate: (newData, oldData) =>
+                      const customer = {
+                        firstname: newData.firstname,
+                        lastname: newData.lastname,
+                        streetaddress: newData.streetaddress,
+                        postcode: newData.postcode,
+                        city: newData.city,
+                        email: newData.email,
+                        phone: newData.phone,            
+                      };
+                      addCustomer(customer);
+                      handleClose();
+                      resolve();
+                }),
+
+                onRowUpdate: (newData) =>
                   new Promise((resolve) => {
-                    setTimeout(() => {
-                      {
-                        const data = props.data;
-                        const index = data.indexOf(oldData);
-                        data[index] = newData;
-                        setState({ data }, () => resolve());
-                      }
-                      resolve()
-                    }, 1000)
+                    const customer = {
+                      firstname: newData.firstname,
+                      lastname: newData.lastname,
+                      streetaddress: newData.streetaddress,
+                      postcode: newData.postcode,
+                      city: newData.city,
+                      email: newData.email,
+                      phone: newData.phone,            
+                    };
+                    const link = newData.links[0].href;
+                      updateCustomer(link, customer);
+                      resolve();
                   }),
-                onRowDelete: oldData =>
+
+                  onRowDelete: (link) =>
                   new Promise((resolve) => {
-                    setTimeout(() => {
-                      {
-                        let data = customer;
-                        const index = data.indexOf(oldData);
-                        data.splice(index, 1);
-                        setState({ data }, () => resolve());
-                      }
-                      resolve()
-                    }, 1000)
+                      deleteCustomer(link.links[0].href);
+                      resolve();
                   }),
-              }}
-            sorting={true}
-            icons={tableIcons}
-            data={customer}
-            columns={columns}
-            defaultPageSize={10} 
-            />
+
+            }}
+         />
+  
 
         </div>
-    )
+    );
 }

@@ -9,9 +9,12 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "material-table": "^1.57.2",
+    "moment": "^2.24.0",
     "react": "^16.13.1",
+    "react-big-calendar": "^0.24.5",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "react-swipeable-views": "^0.13.9",
     "react-table-v6": "^6.8.6",
     "typeface-roboto": "^0.0.75"
   },

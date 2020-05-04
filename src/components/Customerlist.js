@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import MaterialTable from 'material-table';
 import 'react-table-v6/react-table.css';
+import AddTraining from './Addtraining';
 //Icons in MaterialTable did not work properly so I found this solution
 import { forwardRef } from 'react';
 import AddBox from '@material-ui/icons/AddBox';
@@ -20,9 +21,10 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 
 
+
 export default function Customerlist(props) {
 
-    //Icons listed here and everyhing working fine
+    //Icons in MaterialTable listed here  
     const tableIcons = {
         Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
         Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -43,12 +45,11 @@ export default function Customerlist(props) {
         ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     };
 
+    
     const [customer, setCustomer] = useState([]);
     const [open, setOpen] = useState(false);
     const [msg, setMsg] = useState('');
-    const [training, setTraining] = useState({
-      date: '', activity: '', duration: '', customer: ''
-        })
+  
 
 
     const handleClose = () => {
@@ -112,7 +113,7 @@ export default function Customerlist(props) {
   return ( 
     <div>
             <MaterialTable className="-striped -highlight"
-            title="Customer Database"
+            title="Customer List"
             options={{
                 headerStyle: {
                     backgroundColor: '#CD5C5C',
@@ -120,47 +121,52 @@ export default function Customerlist(props) {
                 },
                 filtering: true
             }}
-            sorting={true}
+            
             icons={tableIcons}
             data={customer}
             defaultPageSize={10} 
             data={customer}
   
             columns = {[
-                {
-                    title: 'First Name',
-                    field: 'firstname'
-                },
-                {
-                    title: 'Last Name',
-                    field: 'lastname'
-                },
-                {
-                    title: 'Street Address',
-                    field: 'streetaddress'
-                },
-                {
-                    title: 'Post Code',
-                    field: 'postcode',
-                    type: 'numeric'
-                },
-                {
-                    title: 'City',
-                    field: 'city' 
-                },
-                {
-                    title: 'Email',
-                    field: 'email',
-        
-                },
-                {
-                    title: 'Mobile Number',
-                    field: 'phone',
-                    type:'numeric',
-        
-                },
-
-                 ]}
+/*               {
+                title: 'Add training', 
+                field: 'add',
+                filtering: false,
+                render: rowData => <AddTraining link={rowData.links[0].href} />
+              }, */
+              {
+                  title: 'First Name',
+                  field: 'firstname'
+              },
+              {
+                  title: 'Last Name',
+                  field: 'lastname'
+              },
+              {
+                  title: 'Street Address',
+                  field: 'streetaddress'
+              },
+              {
+                  title: 'Post Code',
+                  field: 'postcode',
+                  type: 'numeric'
+              },
+              {
+                  title: 'City',
+                  field: 'city' 
+              },
+              {
+                  title: 'Email',
+                  field: 'email',
+      
+              },
+              {
+                  title: 'Mobile Number',
+                  field: 'phone',
+                  type:'numeric',
+      
+              }               
+            ]}
           
 
             editable={{

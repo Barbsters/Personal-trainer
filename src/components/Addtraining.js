@@ -15,12 +15,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    minWidth: 550,
   },
 });
 
 
-export default function TrainingsUpdated() {
+export default function AddTraining() {
   const classes = useStyles();
   const [trainings, setTrainings] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -40,7 +40,7 @@ export default function TrainingsUpdated() {
   };
 
   const deleteTraining = id => {
-    if (window.confirm("Are you sure?")) {
+    if (window.confirm("Are you sure you want to delete training?")) {
       const link = "https://customerrest.herokuapp.com/api/trainings/" + id;
       fetch(link, { method: "DELETE" })
         .then(_ => getTrainings())
@@ -66,7 +66,7 @@ export default function TrainingsUpdated() {
 
           <TableHead>
             <TableRow>
-              <TableCell>Trainings</TableCell>
+              <TableCell>Add Training</TableCell>
               <TableCell align="right">Date</TableCell>
               <TableCell align="right">Duration</TableCell>
               <TableCell align="right">Customer</TableCell>

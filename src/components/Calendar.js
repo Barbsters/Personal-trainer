@@ -30,9 +30,7 @@ export default function DisplayCalendar() {
 
     };
 
-    useEffect(() => {
-        getEvents();
-    }, []);
+    useEffect(() => getEvents(), []);
 
 
     return (

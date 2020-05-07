@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import MaterialTable from 'material-table';
 import 'react-table-v6/react-table.css';
-import AddTraining from './Addtraining';
+import Button from '@material-ui/core/Button';
+
 //Icons in MaterialTable did not work properly so I found this solution
 import { forwardRef } from 'react';
 import AddBox from '@material-ui/icons/AddBox';
@@ -119,21 +120,20 @@ export default function Customerlist(props) {
                     backgroundColor: '#CD5C5C',
                     color: '#FFF'
                 },
-                filtering: true
             }}
             
             icons={tableIcons}
             data={customer}
             defaultPageSize={10} 
-            data={customer}
   
             columns = {[
-/*               {
+               {
                 title: 'Add training', 
                 field: 'add',
                 filtering: false,
-                render: rowData => <AddTraining link={rowData.links[0].href} />
-              }, */
+                render: rowData => <Button color="secondary">Add training</Button>
+               /*  render: rowData => <AddTraining link={rowData.links[0].href}  />  // renders straight in table*/
+              },  
               {
                   title: 'First Name',
                   field: 'firstname'
@@ -206,7 +206,7 @@ export default function Customerlist(props) {
                   new Promise((resolve) => {
                       deleteCustomer(link.links[0].href);
                       resolve();
-                  }),
+                  })
 
             }}
          />

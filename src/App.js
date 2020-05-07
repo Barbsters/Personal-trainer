@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
 import Customerlist from './components/Customerlist';
+import Traininglist from './components/Traininglist';
+
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 import PropTypes from 'prop-types';
@@ -10,9 +11,9 @@ import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Paper from '@material-ui/core/Paper';
+
 import Box from '@material-ui/core/Box';
-import AddTraining from './components/Addtraining';
+
 import Calendar from './components/Calendar'
 
  
@@ -81,7 +82,7 @@ export default function FullWidthTabs() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar position="static" style={{ background: '#F08080'}}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -104,7 +105,7 @@ export default function FullWidthTabs() {
           <Customerlist />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <AddTraining />
+          <Traininglist />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
           <Calendar />

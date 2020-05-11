@@ -106,7 +106,7 @@ export default function TrainingsUpdated() {
         { title: 'Activity', field: 'activity' },
         { title: 'Date', field: 'date' },
         { title: 'Duration', field: 'duration'},
-        { title: 'Customer', filed: '' /* {row.customer.firstname} {row.customer.lastname} */}
+        { title: 'Customer', filed: '' /* {row.customer.firstname} {row.customer.lastname} cant fetch customers by name, I just made id work */}
         
       ]}
       data={trainings}  

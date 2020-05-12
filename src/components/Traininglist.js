@@ -20,20 +20,8 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import * as moment from "moment";
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
 
-
-
-export default function TrainingsUpdated() {
+export default function Traininglist() {
 
   //Icons in MaterialTable listed here  
   const tableIcons = {
@@ -71,7 +59,7 @@ export default function TrainingsUpdated() {
   };
 
   const deleteTraining = id => {
-    if (window.confirm("Are you sure you want to delete?")) {
+    if (window.confirm("Are you sure you want to delete training?")) {
       const link = "https://customerrest.herokuapp.com/api/trainings/" + id;
       fetch(link, { method: "DELETE" })
         .then(_ => getTrainings())

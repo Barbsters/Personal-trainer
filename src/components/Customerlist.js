@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import MaterialTable from 'material-table';
+import AddTraining from './Traininglist';
 import 'react-table-v6/react-table.css';
 import Button from '@material-ui/core/Button';
 
@@ -128,11 +129,8 @@ export default function Customerlist(props) {
   
             columns = {[
                {
-                title: 'Add training', 
-                field: 'add',
-                filtering: false,
-                render: rowData => <Button color="secondary">Add training</Button>
-               /*  render: rowData => <AddTraining link={rowData.links[0].href}  />  // renders straight in table*/
+                /* render; rowData <Button onClick={() => AddTraining(rowData.id)} color="secondary">Add Training</Button> */
+                render: rowData => <Button color="secondary">Add training</Button> 
               },  
               {
                   title: 'First Name',

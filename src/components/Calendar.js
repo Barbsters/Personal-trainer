@@ -3,14 +3,12 @@ import moment from 'moment';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-//Calendar component that displays trainings in calendar
+
 export default function DisplayCalendar() {
 
     const localizer = momentLocalizer(moment);
     const [events, setEvents] = useState([{
-        title: '',
-        start: '',
-        end: ''
+        title: '', start: '', end: ''
     }]);
 
     const getEvents = () => {

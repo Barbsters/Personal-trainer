@@ -2,23 +2,22 @@ import React from 'react';
 import './App.css';
 import Customerlist from './components/Customerlist';
 import Traininglist from './components/Traininglist';
+import Calendar from './components/Calendar'
 
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-
 import Box from '@material-ui/core/Box';
 
-import Calendar from './components/Calendar'
 
  
 function TabPanel(props) { 
-/*    return (
+/* I wanna do drawer menu instead of tabs...   return (
     <div className="App"> 
        <AppBar position="static" style={{ background: '#F08080'}}>
         <Toolbar>
@@ -34,6 +33,7 @@ function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
+    
     <Typography
       component="div"
       role="tabpanel"
@@ -55,6 +55,7 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
+    
     id: `full-width-tab-${index}`,
     'aria-controls': `full-width-tabpanel-${index}`,
   };
@@ -81,6 +82,7 @@ export default function FullWidthTabs() {
   };
 
   return (
+
     <div className={classes.root}>
       <AppBar position="static" style={{ background: '#F08080'}}>
         <Tabs
@@ -112,6 +114,7 @@ export default function FullWidthTabs() {
         </TabPanel>
       </SwipeableViews>
     </div> 
+
 
 
   );
